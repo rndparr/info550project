@@ -12,7 +12,7 @@ for(p in pkgs){
 }
 ```
 
-## pandoc-citeproc
+## pandoc-citeproc (optional)
 Report generation with citations and bibliography requires installing pandoc-citeproc.
 
 ### Ubuntu
@@ -29,7 +29,7 @@ brew install pandoc-citeproc
 
 ## Execute the analysis
 
-### With Citations/Bibliography
+### With Citations/Bibliography (optional)
 To execute the analysis, from the project folder run:
 ``` bash
 Rscript -e "rmarkdown::render('report.Rmd')"
