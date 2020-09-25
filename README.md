@@ -28,17 +28,17 @@ brew install pandoc-citeproc
 
 
 ## Execute the analysis
-To execute the analysis, from the project folder run:
 
+### With Citations/Bibliography
+To execute the analysis, from the project folder run:
 ``` bash
 Rscript -e "rmarkdown::render('report.Rmd')"
 ```
-
-To execute the analysis without parsing citations, from the project folder you can run:run: 
+### No Citations/Bibliography
+To execute the analysis without parsing citations, from the project folder you can run: 
 ``` bash
 Rscript -e "rmarkdown::render('report.Rmd', output_format = rmarkdown::html_document(pandoc_args = NULL), params = list(usebiblio = 0))"
 ```
-
 Both commands will create a file called `report.html` output in your directory that contains the results.
 
 
