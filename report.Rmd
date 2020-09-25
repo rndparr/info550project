@@ -14,12 +14,6 @@ params:
   usecache: 0
 ---
 
-```{r}
-# print(metadata$output$html_document$pandoc_args)
-# print(as.list(.GlobalEnv))
-print(rmarkdown::output_format)
-```
-
 <!-- Load libraries, set up chunk options -->
 ```{r, setup, include = FALSE}
 Sys.setlocale('LC_ALL', 'C')
