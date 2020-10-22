@@ -1,0 +1,85 @@
+---
+title: "INFO 550: Project"
+author: "Randy Parrish"
+date: "`r format(Sys.Date())`"
+output: 
+  html_document:
+    pandoc_args: [
+      "--bibliography", "biblio.bib",
+      "--csl", "citestyle.csl",
+      "--metadata", "link-citations=true"
+      ]
+    fig_caption: false
+params: 
+  usebiblio: 1
+  usecache: 0
+---
+
+<!-- Load libraries, set up chunk options -->
+```{r, setup, include = FALSE}
+Sys.setlocale('LC_ALL', 'C')
+
+
+library(knitr)
+source('./functions.R')
+
+# opts_chunk$set(eval = TRUE, echo = FALSE, warning = FALSE, 
+#     dpi = 300, fig.align = 'left', cache = params$usecache)
+opts_chunk$set(eval = TRUE, echo = FALSE, warning = FALSE, cache = params$usecache)
+```
+
+# Background
+
+The software tool TIGAR (Transcriptome-Integrated Genetic Association Resource) [@nagpalTIGARImprovedBayesian2019] was used to train gene imputation models using the DPR model and conduct summary-level association studies using a burden Z-score statistic as implemented by S-PrediXcan [@barbeiraExploringPhenotypicConsequences2018].
+
+Genotype and gene expression data from version 8 of the Genotype-Tissue Expression (GTEx) project [@carithersNovelApproachHighQuality2015a] were used to train gene imputation models for 140 normal ovary tissue samples and 337 normal breast tissue samples from subjects of European ancestry.
+
+Gene expression data was adjusted for eQTL analysis covariates, including principal components and PEER factors, provided by GTEx as well as age and BMI. Breast mammary tissue expression data was also adjusted for *ESR1* expression. 
+
+Models were trained for genes with expression thresholds of $>0.1$ TPM in $\geq10$ samples using variants with minor allele frequency $>0.01$ and  Hardy-Weinberg equilibrium p-value $>0.00001$. Only gene models with an average 5-fold cross-validation $R^2>0.01$ were retained.
+
+Breast and Ovarian cancer GWAS Z-score summary-statistics were obtained from the Breast Cancer Association Consortium (BCAC) [@michailidouAssociationAnalysisIdentifies2017] and the Ovarian Cancer Association Consortium (OCAC) [@phelanIdentificationTwelveNew2017], respectively.
+
+
+# Results
+
+<!-- Breast Cancer, Breast Tissue TWAS Results -->
+## Breast Cancer TWAS
+
+
+### Manhattan Plot
+![Manhattan plot for BC TWAS](../figs/man_breast.png)
+
+### QQ Plot
+![QQ plot for BC TWAS](../figs/qq_breast.png)
+
+
+### Significant Genes
+
+```{r, breast-twas-table}
+sig_data <- read.table('../clean_data/sig_data_breast.txt', header = TRUE, colClasses = 'character')
+make_sig_table(sig_data)
+```
+
+<!-- Ovarian Cancer, Ovary Tissue TWAS Results -->
+## Ovarian Cancer TWAS
+
+### Manhattan Plot
+![Manhattan plot for OC TWAS](../figs/man_ovary.png)
+
+### QQ Plot
+![QQ plot for OC TWAS](../figs/qq_ovary.png)
+
+### Significant Genes
+
+```{r, ovary-twas-table}
+sig_data <- read.table('../clean_data/sig_data_ovary.txt', header = TRUE, colClasses = 'character')
+make_sig_table(sig_data)
+```
+
+<!-- Bibliography automatically generated from bib, csl files -->
+<!-- Chunk used to avoid printing header if bibliography not created -->
+```{r, bibliography-header, eval = params$usebiblio, results = 'asis', cache = FALSE}
+cat('## Bibliography\\n')
+```
+

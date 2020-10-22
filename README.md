@@ -1,6 +1,11 @@
 
 ## R packages
-To analyze the data you will need to install some `R` packages. The required packages can be installed using `R` commands.
+To analyze the data, the `R` packages "ggplot2", "knitr", "kableExtra" need to be installed. To do so, run the following:
+``` bash
+make install
+```
+
+<!-- To analyze the data you will need to install some `R` packages. The required packages can be installed using `R` commands.
 
 ``` r
 installed_pkgs <- row.names(installed.packages())
@@ -10,8 +15,8 @@ for(p in pkgs){
 		install.packages(p)
 	}
 }
-```
-
+``` -->
+<!-- 
 ## pandoc-citeproc (optional)
 Report generation with citations and bibliography requires installing pandoc-citeproc.
 
@@ -25,20 +30,28 @@ sudo apt-get install -y pandoc-citeproc
 ``` bash
 brew install pandoc-citeproc 
 ```
-
+ -->
 
 ## Execute the analysis
 
-### With Citations/Bibliography (optional)
+<!-- ### With Citations/Bibliography (optional)
 To execute the analysis, from the project folder run:
 ``` bash
 Rscript -e "rmarkdown::render('report.Rmd')"
 ```
 ### No Citations/Bibliography
 To execute the analysis without parsing citations, from the project folder you can run: 
+ -->
+To execute the analysis, from the project folder you can run: 
 ``` bash
-Rscript -e "rmarkdown::render('report.Rmd', output_format = rmarkdown::html_document(pandoc_args = NULL), params = list(usebiblio = 0))"
+make report.html
 ```
-Both commands will create a file called `report.html` output in your directory that contains the results.
+The command will create a file called `report.html` output in your directory that contains the results.
+<!-- Both commands will create a file called `report.html` output in your directory that contains the results. -->
 
 
+## Help
+
+``` bash
+make help
+```
