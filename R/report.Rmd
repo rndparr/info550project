@@ -4,12 +4,12 @@ author: "Randy Parrish"
 date: "`r format(Sys.Date())`"
 output: 
   html_document:
+  	fig_caption: false
     pandoc_args: [
-      "--bibliography", "biblio.bib",
-      "--csl", "citestyle.csl",
+      "--bibliography", "../biblio/biblio.bib",
+      "--csl", "../biblio/citestyle.csl",
       "--metadata", "link-citations=true"
       ]
-    fig_caption: false
 params: 
   usebiblio: 1
   usecache: 0
