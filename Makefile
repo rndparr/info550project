@@ -1,7 +1,25 @@
 
 
-## report.html : Generate final analysis report.
-# using cleaned data, generate the report without bibliography
+## report : generate final analysis report.
+.PHONY: report
+report: report.html
+
+## install : install R packages "ggplot2", "knitr", "kableExtra" if not already installed
+.PHONY: install
+install: 
+	Rscript -e 'installed_pkgs <- row.names(installed.packages()); pkgs <- c("ggplot2", "knitr", "kableExtra"); for(p in pkgs){ if(!(p %in% installed_pkgs)){install.packages(p)}}'
+
+# PHONY rule for help
+.PHONY: help
+help: Makefile
+	@sed -n 's/^##//p' $<
+
+## clean : remove cleaned data files, report
+.PHONY: clean
+clean: 
+	rm -f report.html clean_data/clean_data.txt clean_data/plot_data_*.txt clean_data/sig_data_*.txt figs/*.png
+
+## report.html : using cleaned data, generate the report without bibliography
 report.html: R/report.Rmd R/functions.R figs/man_breast.png figs/man_ovary.png figs/qq_breast.png figs/qq_ovary.png clean_data/sig_data_breast.txt clean_data/sig_data_ovary.txt
 	cd R && Rscript -e "rmarkdown::render('report.Rmd', output_format = rmarkdown::html_document(pandoc_args = NULL), params = list(usebiblio = 0), output_file = '../report.html')"
 
@@ -41,21 +59,6 @@ figs: figs/man_breast.png figs/man_ovary.png figs/qq_breast.png figs/qq_ovary.pn
 # rule for plot data, significant gene table data
 .PHONY: plot_sigdat
 plot_sigdat: clean_data/plot_data_breast.txt clean_data/plot_data_ovary.txt clean_data/sig_data_breast.txt clean_data/sig_data_ovary.txt
-
-## install : install R packages "ggplot2", "knitr", "kableExtra" if not already installed
-.PHONY: install
-install: 
-	Rscript -e 'installed_pkgs <- row.names(installed.packages()); pkgs <- c("ggplot2", "knitr", "kableExtra"); for(p in pkgs){ if(!(p %in% installed_pkgs)){install.packages(p)}}'
-
-## clean : remove cleaned data files, report
-.PHONY: clean
-clean: 
-	rm -f report.html clean_data/clean_data.txt clean_data/plot_data_*.txt clean_data/sig_data_*.txt figs/*.png
-
-# PHONY rule for help
-.PHONY: help
-help: Makefile
-	@sed -n 's/^##//p' $<
 
 
 # FILES
